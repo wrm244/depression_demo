@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src = "../js/echarts.min.js"></script>
+    <script type="text/javascript" src = "../js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div id = "main" style = "width: 500px;height:500px">
+    <h3 class="header-title" style="color: #6bff7d;">1985年至2016年各个国家抑郁人数</h3>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var chartDom = document.getElementById('main');
+        var myChart = echarts.init(chartDom);
+        $.getJSON("https://bdapi.gxist.cn/api/country-depressed",function(values) {
+
+            var xdata=[]
+            var ydata=[]
+            for(var i=0;i<values["data"].length;i++){
+                xdata.push(values["data"][i]["country"])
+                ydata.push(values["data"][i]["depressedCountry"])
+            }
+            console.log(xdata)
+            console.log(ydata)
+            var option;
+
+            option = {
+                xAxis: {
+                    type: 'category',
+                    data: xdata
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name:'抑郁人口',
+                        data: ydata,
+                        type: 'bar'
+                    }
+                ]
+            };
+
+            option && myChart.setOption(option);
+
+        })
+    })
+</script>
+</body>
+</html>

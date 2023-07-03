@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src = "../js/echarts.min.js"></script>
+    <script type="text/javascript" src = "../js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div id = "main" style = "width: 900px;height:500px">
+
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var chartDom = document.getElementById('main');
+        var myChart = echarts.init(chartDom);
+        $.getJSON("https://bdapi.gxist.cn/api/age-depressed",function(values) {
+            var xdata=[]
+            var ydata=[]
+            for(var i=0;i<values["data"].length;i++){
+                xdata.push(values["data"][i]["age"])
+                ydata.push(values["data"][i]["depressedNo"])
+            }
+            console.log(xdata)
+            console.log(ydata)
+            var option;
+
+            option = {
+                xAxis: {
+                    type: 'category',
+                    data: xdata
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        data: ydata,
+                        type: 'bar'
+                    }
+                ]
+            };
+
+            option && myChart.setOption(option);
+
+        })
+    })
+</script>
+</body>
+</html>
