@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="echarts.min.js"></script>
+    <script src = "world.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+<div id = "main" style = "width: 900px;height:500px">
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+
+        var chartDom = document.getElementById('main');
+        var myChart = echarts.init(chartDom);
+
+        // 指定图表的配置项和数据
+        var name_title = "全球抑郁人数统计"
+        var mapName = 'world'
+        $.getJSON("https://bdapi.gxist.cn/api/country-depressed-per",function(values) {
+            console.log(values)
+            var arr =[];
+            for(var i=0;i<values["data"].length;i++){
+                 arr.push({"name":values["data"][i]["country"],"value":values["data"][i]["average_depression_ratio"]});
+            }
+            console.log(arr)
+
+            var option = {
+                title: {
+                    text: name_title,
+                    x: 'center',
+                    textStyle: {
+                        fontSize: 24
+                    },
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params) {
+                        var toolTiphtml = ''
+                        if (isNaN(params.value)){
+                            toolTiphtml = params.name + '无数据';
+                        }
+                        else{
+                            params.value = params.value.toFixed(2);
+                            toolTiphtml = params.name + '抑郁比例: ' + params.value  +'%';
+                        }
+                        //console.log(toolTiphtml)
+                        return toolTiphtml;
+                    }
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                visualMap: {
+                    show: true,
+                    left: 'left',
+                    top: 'bottom',
+                    seriesIndex: [0],
+                    type:'piecewise',
+                    pieces:[
+                        {min:3.5, color: 'rgb(254,57,101)'},
+                        {min:3, max:3.5, color: 'rgb(252,157,154)'},
+                        {min:2, max:3, color: 'rgb(249,205,173)'},
+                        {min:1, max:2, color: 'rgb(200,200,169)'},
+                        {min:0, max:1, color: 'rgb(131,175,155)'}
+                    ],
+                    textStyle: {
+                        color: '#000000'
+                    }
+                },
+                geo: {
+                    show: true,
+                    map: mapName,
+                    label: {
+                        normal: {
+                            show: false,
+                            fontSize:12,
+                        },
+                        emphasis: {
+                            show: false,
+                        }
+                    },
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#F6F6F6',
+                            borderColor: '#666666',
+                        },
+                        emphasis: {
+                            areaColor: '#0099CC',
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'map',
+                        map: mapName,
+                        geoIndex: 0,
+                        animation: false,
+                        data: arr
+                    },
+                ]
+            };
+
+            option && myChart.setOption(option);
+
+        })
+    })
+</script>
+</body>
+</html>
