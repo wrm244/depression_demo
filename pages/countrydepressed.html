@@ -21,19 +21,40 @@
             var xdata=[]
             var ydata=[]
             for(var i=0;i<values["data"].length;i++){
-                xdata.push(values["data"][i]["country"])
-                ydata.push(values["data"][i]["depressedCountry"])
+				 for (var j = 0; j < values["data"].length - 1 - i; j++) {
+					if (values["data"][j]["depressedCountry"] > values["data"][j+1]["depressedCountry"]) {        // 相邻元素两两对比
+						var temp = values["data"][j+1]["depressedCountry"];        // 元素交换
+						values["data"][j+1]["depressedCountry"] = values["data"][j]["depressedCountry"];
+						values["data"][j]["depressedCountry"] = temp;
+					}
+					xdata.push(values["data"][j]["country"])
+					ydata.push(values["data"][j]["depressedCountry"])
+				}
             }
             console.log(xdata)
             console.log(ydata)
             var option;
 
             option = {
+				//title:'1985年至2016年各个国家抑郁人数',
+				title : {
+					text: '1985年至2016年各个国家抑郁人数',
+					//subtext: '数据来自xxx',
+					x: 'center',
+					align: 'right'
+				},//标题
                 xAxis: {
+					name:'国家名称',
                     type: 'category',
-                    data: xdata
+                    data: xdata,
+					    axisLabel:{  
+							interval:0,//横轴信息全部显示  
+							rotate:-15,//-15度角倾斜显示  
+							}
                 },
                 yAxis: {
+					show:true,
+					name:'抑郁人数',
                     type: 'value'
                 },
                 series: [
