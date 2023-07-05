@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src = "../js/echarts.min.js"></script>
+    <script type="text/javascript" src = "../js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div id = "main" style = "width: 900px;height:500px">
+
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var chartDom = document.getElementById('main');
+        var myChart = echarts.init(chartDom);
+        $.getJSON("https://bdapi.gxist.cn/api/gdp-per-section",function(values) {
+            var xdata=[]
+            var ydata=[]
+            for(var i=0;i<values["data"].length;i++){
+                xdata.push(values["data"][i]["gdpPerCapita"])
+                ydata.push(values["data"][i]["depressedNo"])
+            }
+            console.log(xdata)
+            console.log(ydata)
+            var option;
+
+            // option = {
+            //     title: [
+            //         {
+            //             text: 'Radial Polar Bar Label Position (middle)'
+            //         }
+            //     ],
+            //     polar: {
+            //         radius: [30, '80%']
+            //     },
+            //     angleAxis: {
+            //         type: 'category',
+            //         data: xdata,
+            //         startAngle: 75
+            //     },
+            //     radiusAxis: {
+            //         max: 4
+            //     },
+            //     yAxis: {
+            //         type: 'value'
+            //     },
+            //     series: [
+            //         {
+            //             data: ydata,
+            //             type: 'bar'
+            //         }
+            //     ]
+            // };
+            var sum = 0;
+            for(var k=0; k<ydata.length; k++){
+                sum += ydata[k]
+            }
+            for(var l=0; l<ydata.length; l++){
+                ydata[l]=ydata[l]/sum
+            }
+
+            option = {
+                title: [
+                    {
+                        text: 'Radial Polar Bar Label Position (middle)'
+                    }
+                ],
+                polar: {
+                    radius: [30, '80%']
+                },
+                radiusAxis: {
+                    max: 1
+                },
+                angleAxis: {
+                    type: 'category',
+                    data: xdata,
+                    startAngle: 75
+                },
+                tooltip: {},
+                series: {
+                    type: 'bar',
+                    data: ydata,
+                    coordinateSystem: 'polar',
+                    label: {
+                        show: true,
+                        position: 'middle',
+                        formatter: '{b}: {c}'
+                    }
+                },
+                animation: false
+            };
+
+            option && myChart.setOption(option);
+
+        })
+    })
+</script>
+</body>
+</html>

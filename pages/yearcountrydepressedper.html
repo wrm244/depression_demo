@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/js/echarts.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <title>每年每个国家每十万人抑郁人数展示</title>
+</head>
+<body>
+    <div id="main" style="width: 2000px;height: 900px;">
+    <script type="text/javascript">
+        $(function(){
+            var chartDom = document.getElementById('main');
+            var myChart = echarts.init(chartDom);
+            $.getJSON("https://bdapi.gxist.cn/api/year-country-depressed-per", function(inputData){
+                var formattedData = [];
+                var yearList = [];
+                var countryList = [];
+
+                for (var i = 0; i < inputData["data"].length; i++) {
+                    var item = inputData["data"][i];
+                    var name = item.country;
+                    var year = item.year;
+                    var data = [item.totalDepressedRate];
+
+                    var existingCountry = formattedData.find(function(d) {
+                    return d.name === name;
+                    });
+
+                    if (existingCountry) {
+                    existingCountry.data.push(data[0]);
+                    } else {
+                    formattedData.push({
+                        name: name,
+                        type: 'line',
+                        //stack: 'Total',
+                        data: data
+                    });
+                    }
+
+                    if (!yearList.includes(year)) {
+                    yearList.push(year);
+                    }
+
+                    if (!countryList.includes(name)) {
+                    countryList.push(name);
+                    }
+
+                }
+
+                console.log(formattedData)
+                console.log(yearList)
+                console.log(countryList)
+                var option;
+                var selectedLegend = {};
+                countryList.forEach(function(country) {
+                   selectedLegend[country] = false; // 设置初始显示状态为 false
+                });
+                option = {
+                title: {
+                    text: '每年每个国家每十万人抑郁人数'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    selected: selectedLegend,
+                    right: '10px',
+                    data: countryList
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    width: '80%',  // 设置宽度
+                    height: '60%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                    saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: yearList,
+                    name:'年份'
+                },
+                yAxis: {
+                    type: 'value',
+                    name:'人数'
+                },
+                series: formattedData
+                };
+
+                option && myChart.setOption(option);
+                            
+                        })
+                })
+    </script>
+    </div>
+</body>
+</html>
