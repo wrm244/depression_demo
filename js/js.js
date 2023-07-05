@@ -10,7 +10,6 @@ echarts_5();
 echarts_6();
 function echarts_1() {
         // 基于准备好的dom，初始化echarts实例
-<<<<<<< HEAD
     var myChart = echarts.init(document.getElementById('echart1'));
 
     var xdata=[]
@@ -106,7 +105,7 @@ function echarts_1() {
 
             ]
         };
-=======
+
         var myChart = echarts.init(document.getElementById('echart1'));
 
        option = {
@@ -195,19 +194,18 @@ function echarts_1() {
 	]
 };
       
->>>>>>> main
+
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
         window.addEventListener("resize",function(){
             myChart.resize();
         });
-<<<<<<< HEAD
+
     })
 
       
 
-=======
->>>>>>> main
+
     }
 function echarts_2() {
         // 基于准备好的dom，初始化echarts实例
@@ -305,7 +303,7 @@ function echarts_2() {
         });
     }
 function echarts_5() {
-<<<<<<< HEAD
+
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('echart5'));
     var mxdata=[]
@@ -331,10 +329,10 @@ function echarts_5() {
 
 
 
-=======
+
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart5'));
->>>>>>> main
+
 
        option = {
   //  backgroundColor: '#00265f',
