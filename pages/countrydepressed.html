@@ -7,7 +7,7 @@
     <script type="text/javascript" src = "../js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<div id = "main" style = "width: 500px;height:500px">
+<div id = "main" style = "width: 300px;height:180px">
     <h3 class="header-title" style="color: #6bff7d;">1985年至2016年各个国家抑郁人数</h3>
 
 </div>
@@ -36,27 +36,76 @@
             var option;
 
             option = {
-				//title:'1985年至2016年各个国家抑郁人数',
-				title : {
-					text: '1985年至2016年各个国家抑郁人数',
-					//subtext: '数据来自xxx',
-					x: 'center',
-					align: 'right'
-				},//标题
-                xAxis: {
-					name:'国家名称',
-                    type: 'category',
-                    data: xdata,
-					    axisLabel:{  
-							interval:0,//横轴信息全部显示  
-							rotate:-15,//-15度角倾斜显示  
-							}
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
                 },
-                yAxis: {
-					show:true,
-					name:'抑郁人数',
-                    type: 'value'
+                grid: {
+                    left: '0%',
+                    top:'10px',
+                    right: '0%',
+                    bottom: '4%',
+                containLabel: true
                 },
+                xAxis: [{
+                    name:'国家名称',
+        type: 'category',
+        data: xdata,
+        axisLabel:{  
+            interval:0,//横轴信息全部显示  
+            rotate:-15,//-15度角倾斜显示  
+            show: true,
+         lineStyle: {
+                color: "rgba(255,255,255,.1)",
+                width: 1,
+                type: "solid"
+            },
+        },
+		
+        axisTick: {
+            show: false,
+        },
+		axisLabel:  {
+                interval: 0,
+               // rotate:50,
+                show: true,
+                splitNumber: 15,
+                textStyle: {
+ 					color: "rgba(255,255,255,.6)",
+                    fontSize: '12',
+                },
+            },
+    }],
+    yAxis: [{
+        name:'抑郁人数',
+        type: 'value',
+        axisLabel: {
+           //formatter: '{value} %'
+			show:true,
+			 textStyle: {
+ 					color: "rgba(255,255,255,.6)",
+                    fontSize: '12',
+                },
+        },
+        axisTick: {
+            show: false,
+        },
+        axisLine: {
+            show: true,
+            lineStyle: {
+                color: "rgba(255,255,255,.1	)",
+                width: 1,
+                type: "solid"
+            },
+        },
+        splitLine: {
+            lineStyle: {
+               color: "rgba(255,255,255,.1)",
+            }
+        }
+    }],
                 series: [
                     {
                         name:'抑郁人口',
