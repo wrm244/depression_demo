@@ -7,7 +7,7 @@
     <script type="text/javascript" src = "../js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<div id = "main" style = "width: 500px;height:500px">
+<div id = "main" style = "width: 300px;height:180px">
     <h3 class="header-title" style="color: #6bff7d;">1985年至2016年各个国家抑郁人数</h3>
 
 </div>
@@ -21,40 +21,19 @@
             var xdata=[]
             var ydata=[]
             for(var i=0;i<values["data"].length;i++){
-				 for (var j = 0; j < values["data"].length - 1 - i; j++) {
-					if (values["data"][j]["depressedCountry"] > values["data"][j+1]["depressedCountry"]) {        // 相邻元素两两对比
-						var temp = values["data"][j+1]["depressedCountry"];        // 元素交换
-						values["data"][j+1]["depressedCountry"] = values["data"][j]["depressedCountry"];
-						values["data"][j]["depressedCountry"] = temp;
-					}
-					xdata.push(values["data"][j]["country"])
-					ydata.push(values["data"][j]["depressedCountry"])
-				}
+                xdata.push(values["data"][i]["country"])
+                ydata.push(values["data"][i]["depressedCountry"])
             }
             console.log(xdata)
             console.log(ydata)
             var option;
 
             option = {
-				//title:'1985年至2016年各个国家抑郁人数',
-				title : {
-					text: '1985年至2016年各个国家抑郁人数',
-					//subtext: '数据来自xxx',
-					x: 'center',
-					align: 'right'
-				},//标题
                 xAxis: {
-					name:'国家名称',
                     type: 'category',
-                    data: xdata,
-					    axisLabel:{  
-							interval:0,//横轴信息全部显示  
-							rotate:-15,//-15度角倾斜显示  
-							}
+                    data: xdata
                 },
                 yAxis: {
-					show:true,
-					name:'抑郁人数',
                     type: 'value'
                 },
                 series: [
