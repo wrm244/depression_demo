@@ -202,11 +202,7 @@ function echarts_1() {
         });
 
     })
-
-      
-
-
-    }
+}
 function echarts_2() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart2'));
