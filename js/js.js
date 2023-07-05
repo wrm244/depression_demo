@@ -402,8 +402,18 @@ function echarts_4() {
                         color: "rgba(255,255,255,.6)",
                         fontSize: 12,
                     },
+                    formatter: function (value, index) {
+                        var value
+                        if (value >= 10000 && value < 1000000) {
+                            value = value / 10000 + '万'
+                        } else if (value >= 1000000) {
+                            value = value / 1000000 + '百万'
+                        } else if (value < 10000) {
+                            value = value
+                        }
+                        return value
+                    },
                 },
-
                 splitLine: {
                     lineStyle: {
                         color: 'rgba(255,255,255,.1)'
