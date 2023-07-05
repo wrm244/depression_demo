@@ -234,12 +234,8 @@ function echarts_5() {
 
     })
 
-
-
-
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart5'));
-
 
        option = {
   //  backgroundColor: '#00265f',
@@ -348,7 +344,7 @@ function echarts_4() {
             },
             legend: {
                 top: '0%',
-                data: ['Male', 'Female'],
+                data: ['男性', '女性'],
                 textStyle: {
                     color: 'rgba(255,255,255,.5)',
                     fontSize: '12',
