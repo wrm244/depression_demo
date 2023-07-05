@@ -118,6 +118,15 @@ function echarts_2() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart2'));
 
+        var xdata=[]
+        var ydata=[]
+        $.getJSON("https://bdapi.gxist.cn/api/country-depressed",function(values) {
+    
+        for(var i=0;i<values["data"].length;i++){
+            xdata.push(values["data"][i]["country"])
+            ydata.push(values["data"][i]["depressedCountry"])
+        }
+
        option = {
   //  backgroundColor: '#00265f',
     tooltip: {
@@ -133,7 +142,7 @@ function echarts_2() {
     },
     xAxis: [{
         type: 'category',
-      		data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽'],
+      		data: xdata.slice(1,10),
         axisLine: {
             show: true,
          lineStyle: {
@@ -188,7 +197,7 @@ function echarts_2() {
 		{
        
         type: 'bar',
-        data: [1500, 1200, 600, 200, 300, 300, 900],
+        data: ydata.slice(1,10),
         barWidth:'35%', //柱子宽度
        // barGap: 1, //柱子之间间距
         itemStyle: {
@@ -208,7 +217,9 @@ function echarts_2() {
         window.addEventListener("resize",function(){
             myChart.resize();
         });
+    })
     }
+
 function echarts_5() {
 
     // 基于准备好的dom，初始化echarts实例
@@ -680,10 +691,17 @@ option = {
 function echarts_31() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('fb1')); 
+        var xdata=[];
+        $.getJSON("https://bdapi.gxist.cn/api/sex-depressed",function(values) {
+            for(var i=0;i<values["data"].length;i++){
+                //重写JSON表单格式
+                var arr = {"name":values["data"][i]["sex"],"value":values["data"][i]["depressedSex"]};
+                xdata.push(arr);
+            }
 option = {
    
 	    title: [{
-        text: '年龄分布',
+        text: '性别分布',
         left: 'center',
         textStyle: {
             color: '#fff',
@@ -703,7 +721,7 @@ position:function(p){   //其中p为当前鼠标的位置
 top:'70%',
        itemWidth: 10,
         itemHeight: 10,
-        data:['0岁以下','20-29岁','30-39岁','40-49岁','50岁以上'],
+        data:['male','female'],
                 textStyle: {
             color: 'rgba(255,255,255,.5)',
 			fontSize:'12',
@@ -711,20 +729,14 @@ top:'70%',
     },
     series: [
         {
-        	name:'年龄分布',
+        	name:'性别分布',
             type:'pie',
 			center: ['50%', '42%'],
             radius: ['40%', '60%'],
-                  color: ['#065aab', '#066eab', '#0682ab', '#0696ab', '#06a0ab','#06b4ab','#06c8ab','#06dcab','#06f0ab'],	
+                  color: ['#065aab', '#066eab'],	
             label: {show:false},
 			labelLine: {show:false},
-            data:[
-                {value:1, name:'0岁以下'},
-                {value:4, name:'20-29岁'},
-                {value:2, name:'30-39岁'},
-                {value:2, name:'40-49岁'},
-                {value:1, name:'50岁以上'},
-            ]
+            data:xdata
         }
     ]
 };
@@ -734,7 +746,7 @@ top:'70%',
         window.addEventListener("resize",function(){
             myChart.resize();
         });
-    }
+    })};
 function echarts_32() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('fb2'));
