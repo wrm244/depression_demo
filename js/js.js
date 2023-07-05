@@ -359,8 +359,10 @@ function echarts_4() {
             },
 
             xAxis: [{
+                interval:50,
+
                 type: 'category',
-                boundaryGap: false,
+                boundaryGap: true,
                 axisLabel: {
                     textStyle: {
                         color: "rgba(255,255,255,.6)",
@@ -511,12 +513,12 @@ function echarts_4() {
          console.log("male_number"+mydata.slice(1,10))
         myChart.setOption({
             xAxis: {
-                data: mxdata.slice(1,16)
+                data: mxdata
             },
             series: [{
-                data:mydata.slice(1,16)
+                data:mydata
             },{
-                data:fydata.slice(1,16)
+                data:fydata
             }]
         })
     })
@@ -531,12 +533,12 @@ function echarts_4() {
         console.log("female_number"+fydata.slice(1,10))
         myChart.setOption({
             xAxis: {
-                data: mxdata.slice(1,16)
+                data: mxdata
             },
             series: [{
-                data:mydata.slice(1,16)
+                data:mydata
             },{
-                data:fydata.slice(1,16)
+                data:fydata
             }]
         })
 
