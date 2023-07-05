@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://haiyong.site/demo/chuanyueshikong.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>海拥🌊 | 穿越时空</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="海拥，摸鱼，穿越时空">
+  <meta name="description" content="海拥，摸鱼，穿越时空;立志打造一个拥有100个小游戏的摸鱼网站。made by  y  Haiyong，技术支持——海拥"> 
+  <meta name="author" content="海拥(https://haiyong.site/moyu)">
+  <meta name="copyright" content="海拥(https://haiyong.site/moyu)">
+  <link rel="icon" href="https://haiyong.site/img/favicon.png" sizes="192x192">
+  
+  <style>
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #000;
+  text-align: center;
+}
+body::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.scene {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  perspective: 15px;
+  perspective-origin: 50% 50%;
+}
+
+.wrap {
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  left: -500px;
+  top: -500px;
+  transform-style: preserve-3d;
+  animation: move 12s infinite linear;
+  animation-fill-mode: forwards;
+}
+
+.wrap:nth-child(2) {
+  animation: move 12s infinite linear;
+  animation-delay: 6s;
+}
+
+.wall {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/18515/PIA09959-1280x800_copy.jpg);
+  background-size: cover;
+  opacity: 0;
+  animation: fade 12s infinite linear;
+}
+
+.wrap:nth-child(2) .wall {
+  animation-delay: 6s;
+}
+
+.wall-right {
+  transform: rotateY(90deg) translateZ(500px);
+}
+
+.wall-left {
+  transform: rotateY(-90deg) translateZ(500px);
+}
+
+.wall-top {
+  transform: rotateX(90deg) translateZ(500px);
+}
+
+.wall-bottom {
+  transform: rotateX(-90deg) translateZ(500px);
+}
+
+.wall-back {
+  transform: rotateX(180deg) translateZ(500px);
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes move {
+  0% {
+    transform: translateZ(-500px) rotate(0deg);
+  }
+  100% {
+    transform: translateZ(500px) rotate(0deg);
+  }
+}
+  </style>
+<script src="./timeMechanical_files/hm.js.下载"></script><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a9430a37066911650e26adadcc42798a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script charset="UTF-8" id="LA_COLLECT" src="./timeMechanical_files/js-sdk-pro.min.js.下载"></script>
+<script>LA.init({id:"JxVJPIpe3UAQqoDx",ck:"JxVJPIpe3UAQqoDx"})</script></head>
+<body>
+
+
+<div class="scene">
+  <div class="wrap">
+    <div class="wall wall-right"></div>
+    <div class="wall wall-left"></div>
+    <div class="wall wall-top"></div>
+    <div class="wall wall-bottom"></div>
+    <div class="wall wall-back"></div>
+  </div>
+  <div class="wrap">
+    <div class="wall wall-right"></div>
+    <div class="wall wall-left"></div>
+    <div class="wall wall-top"></div>
+    <div class="wall wall-bottom"></div>
+    <div class="wall wall-back"></div>
+  </div>
+</div>
+
+
+
+</body></html>

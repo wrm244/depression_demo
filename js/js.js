@@ -229,12 +229,8 @@ function echarts_5() {
 
     })
 
-
-
-
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart5'));
-
 
        option = {
   //  backgroundColor: '#00265f',
@@ -331,46 +327,7 @@ function echarts_5() {
 
 function echarts_4() {
     // 基于准备好的dom，初始化echarts实例
-    var xdata = []
-    var ydata = []
-
     var myChart = echarts.init(document.getElementById('echart4'));
-    var mxdata=[]
-    var mydata=[]
-    var fxdata=[]
-    var fydata=[]
-    $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed?sex=male",function(values) {
-
-        for(var i=0;i<values["data"].length;i++){
-            mxdata.push(values["data"][i]["year"])
-            mydata.push(values["data"][i]["depressed_no"])
-        }
-        // console.log(mxdata.slice(1,10))
-        // console.log(mydata.slice(1,10))
-    })
-
-    $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed?sex=female",function(values) {
-
-        for(var i=0;i<values["data"].length;i++){
-            fxdata.push(values["data"][i]["year"])
-            fydata.push(values["data"][i]["depressed_no"])
-        }
-        console.log(fxdata.slice(1,10))
-        console.log(fydata.slice(1,10))
-    })
-
-    // $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed?sex=male", function (values) {
-    //
-    //     for (var i = 0; i < values["data"].length; i++) {
-    //         xdata.push(values["data"][i]["year"])
-    //         ydata.push(values["data"][i]["depressed_no"])
-    //     }
-    //     console.log(xdata.slice(1, 10))
-    //     console.log(ydata.slice(1, 10))
-    // })
-    console.log(mxdata.slice(1,10))
-    console.log(mydata.slice(1,10))
-
         option = {
             tooltip: {
                 trigger: 'axis',
@@ -382,7 +339,7 @@ function echarts_4() {
             },
             legend: {
                 top: '0%',
-                data: ['Male', 'Female'],
+                data: ['男性', '女性'],
                 textStyle: {
                     color: 'rgba(255,255,255,.5)',
                     fontSize: '12',
@@ -397,8 +354,10 @@ function echarts_4() {
             },
 
             xAxis: [{
+                interval:50,
+
                 type: 'category',
-                boundaryGap: false,
+                boundaryGap: true,
                 axisLabel: {
                     textStyle: {
                         color: "rgba(255,255,255,.6)",
@@ -412,7 +371,7 @@ function echarts_4() {
 
                 },
 
-                data: mxdata.slice(1,16)
+                data: []
             }, {
 
                 axisPointer: {show: false},
@@ -436,8 +395,18 @@ function echarts_4() {
                         color: "rgba(255,255,255,.6)",
                         fontSize: 12,
                     },
+                    formatter: function (value, index) {
+                        var value
+                        if (value >= 10000 && value < 1000000) {
+                            value = value / 10000 + '万'
+                        } else if (value >= 1000000) {
+                            value = value / 1000000 + '百万'
+                        } else if (value < 10000) {
+                            value = value
+                        }
+                        return value
+                    },
                 },
-
                 splitLine: {
                     lineStyle: {
                         color: 'rgba(255,255,255,.1)'
@@ -446,7 +415,7 @@ function echarts_4() {
             }],
             series: [
                 {
-                    name: 'Male',
+                    name: '男性',
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',
@@ -478,11 +447,11 @@ function echarts_4() {
                             borderWidth: 12
                         }
                     },
-                    data: mydata.slice(1,16)
+                    data: []
 
                 },
                 {
-                    name: 'Female',
+                    name: '女性',
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',
@@ -515,18 +484,61 @@ function echarts_4() {
                         }
                     },
                     data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
-
                 },
-
             ]
-
         };
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-        window.addEventListener("resize", function () {
-            myChart.resize();
-        });
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    window.addEventListener("resize", function () {
+        myChart.resize()})
+
+    //获取数据重新渲染
+    var mxdata=[]
+    var mydata=[]
+    var fxdata=[]
+    var fydata=[]
+    $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed?sex=male",function(values) {
+
+        for(var i=0;i<values["data"].length;i++){
+            mxdata.push(values["data"][i]["year"])
+            mydata.push(values["data"][i]["depressed_no"])
+        }
+         console.log("male_year"+mxdata.slice(1,10))
+         console.log("male_number"+mydata.slice(1,10))
+        myChart.setOption({
+            xAxis: {
+                data: mxdata
+            },
+            series: [{
+                data:mydata
+            },{
+                data:fydata
+            }]
+        })
+    })
+
+    $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed?sex=female",function(values) {
+
+        for(var i=0;i<values["data"].length;i++){
+            fxdata.push(values["data"][i]["year"])
+            fydata.push(values["data"][i]["depressed_no"])
+        }
+        console.log("female_year"+fxdata.slice(1,10))
+        console.log("female_number"+fydata.slice(1,10))
+        myChart.setOption({
+            xAxis: {
+                data: mxdata
+            },
+            series: [{
+                data:mydata
+            },{
+                data:fydata
+            }]
+        })
+
+    })
+
 
 }
 function echarts_6() {
