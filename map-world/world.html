@@ -25,8 +25,9 @@
             console.log(values)
             var arr =[];
             for(var i=0;i<values["data"].length;i++){
-                 arr.push({"name":values["data"][i]["country"],"value":values["data"][i]["average_depression_ratio"]});
+                 arr.push({"name":values["data"][i]["country"],"value":values["data"][i]["average_depression_ratio"]/10});
             }
+            arr.push({"name":"China","value":2.1})
             console.log(arr)
 
             var option = {

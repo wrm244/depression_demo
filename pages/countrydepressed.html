@@ -21,91 +21,21 @@
             var xdata=[]
             var ydata=[]
             for(var i=0;i<values["data"].length;i++){
-				 for (var j = 0; j < values["data"].length - 1 - i; j++) {
-					if (values["data"][j]["depressedCountry"] > values["data"][j+1]["depressedCountry"]) {        // 相邻元素两两对比
-						var temp = values["data"][j+1]["depressedCountry"];        // 元素交换
-						values["data"][j+1]["depressedCountry"] = values["data"][j]["depressedCountry"];
-						values["data"][j]["depressedCountry"] = temp;
-					}
-					xdata.push(values["data"][j]["country"])
-					ydata.push(values["data"][j]["depressedCountry"])
-				}
+                xdata.push(values["data"][i]["country"])
+                ydata.push(values["data"][i]["depressedCountry"])
             }
             console.log(xdata)
             console.log(ydata)
             var option;
 
             option = {
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
+                xAxis: {
+                    type: 'category',
+                    data: xdata
                 },
-                grid: {
-                    left: '0%',
-                    top:'10px',
-                    right: '0%',
-                    bottom: '4%',
-                containLabel: true
+                yAxis: {
+                    type: 'value'
                 },
-                xAxis: [{
-                    name:'国家名称',
-        type: 'category',
-        data: xdata,
-        axisLabel:{  
-            interval:0,//横轴信息全部显示  
-            rotate:-15,//-15度角倾斜显示  
-            show: true,
-         lineStyle: {
-                color: "rgba(255,255,255,.1)",
-                width: 1,
-                type: "solid"
-            },
-        },
-		
-        axisTick: {
-            show: false,
-        },
-		axisLabel:  {
-                interval: 0,
-               // rotate:50,
-                show: true,
-                splitNumber: 15,
-                textStyle: {
- 					color: "rgba(255,255,255,.6)",
-                    fontSize: '12',
-                },
-            },
-    }],
-    yAxis: [{
-        name:'抑郁人数',
-        type: 'value',
-        axisLabel: {
-           //formatter: '{value} %'
-			show:true,
-			 textStyle: {
- 					color: "rgba(255,255,255,.6)",
-                    fontSize: '12',
-                },
-        },
-        axisTick: {
-            show: false,
-        },
-        axisLine: {
-            show: true,
-            lineStyle: {
-                color: "rgba(255,255,255,.1	)",
-                width: 1,
-                type: "solid"
-            },
-        },
-        splitLine: {
-            lineStyle: {
-               color: "rgba(255,255,255,.1)",
-            }
-        }
-    }],
                 series: [
                     {
                         name:'抑郁人口',
