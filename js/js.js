@@ -418,7 +418,7 @@ function echarts_4() {
             }],
             series: [
                 {
-                    name: 'Male',
+                    name: '男性',
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',
@@ -454,7 +454,7 @@ function echarts_4() {
 
                 },
                 {
-                    name: 'Female',
+                    name: '女性',
                     type: 'line',
                     smooth: true,
                     symbol: 'circle',
