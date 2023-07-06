@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src = "../js/echarts.min.js"></script>
+    <script type="text/javascript" src = "../js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../css/comon0.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .box {
+            text-align: center;
+        }
+
+        .alltitle {
+            font-size: 24px; /* 调整文字的大小 */
+        }
+
+        .box > div {
+            margin-bottom: 20px;
+        }
+
+        #main {
+            width: 900px;
+            height: 500px;
+            /* 其他样式设置 */
+        }
+    </style>
+</head>
+<body>
+<div class="head222">
+    <h1 style="font-size: 38px;margin-top: 50px">全球抑郁症患者大数据分析</h1>
+</div>
+<div class="container">
+    <div class="box">
+        <div class="alltitle">各国家抑郁症人数随年份趋势
+            &nbsp;&nbsp;&nbsp;<a href="../index.html" style="font-size: 12px;"><i class="fas fa-home" style="color: white;font-size: 20px;"></i></a>
+        </div>
+        <div id="main"  ></div>
+    </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var formattedData = [];
+        var yearList = [];
+        var countryList = [];
+
+        $.getJSON("https://bdapi.gxist.cn/api/year-country-depression-no", function (inputData) {
+
+            for (var i = 0; i < inputData["data"].length; i++) {
+                var item = inputData["data"][i];
+                var name = item.country;
+                var year = item.year;
+                var data = [item.totalDepressedNo];
+
+                var existingCountry = formattedData.find(function (d) {
+                    return d.name === name;
+                });
+
+                if (existingCountry) {
+                    existingCountry.data.push(data[0]);
+                } else {
+                    formattedData.push({
+                        name: name,
+                        type: 'line',
+                        //stack: 'Total',
+                        data: data
+                    });
+                }
+
+                if (!yearList.includes(year)) {
+                    yearList.push(year);
+                }
+
+                if (!countryList.includes(name)) {
+                    countryList.push(name);
+                }
+
+            }
+
+            var option;
+            var selectedLegend = {};
+            countryList.forEach(function (country) {
+                selectedLegend[country] = false; // 设置初始显示状态为 false
+            });
+            option = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    selected: selectedLegend,
+                    orient: 'vertical', // 将图例垂直排列
+                    right: '-11%',     // 将图例移出图表右侧
+                    data: countryList,
+                    Color:'blank'//图例关闭时的颜色
+                },
+                grid: {
+                    // left: '10%',       // 调整图表相对于左侧的位置
+                    // right: '10%',      // 调整图表相对于右侧的位置
+                    containLabel: false // 扩展绘图区域到整个grid区域
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    name: '年份', // 修改 x 轴标签为 "年份"
+                    boundaryGap: false,
+                    data: yearList
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '人数'
+                },
+                series: formattedData.slice(10,25)
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+            window.addEventListener("resize", function () {
+                myChart.resize();
+            });
+        })
+    })
+
+</script>
+</body>
+</html>
