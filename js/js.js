@@ -553,146 +553,217 @@ $(function () {
     function echarts_6() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart6'));
-
-        var dataStyle = {
-            normal: {
-                label: {
-                    show: false
-                },
-                labelLine: {
-                    show: false
-                },
-                //shadowBlur: 40,
-                //shadowColor: 'rgba(40, 40, 40, 1)',
-            }
-        };
-        var placeHolderStyle = {
-            normal: {
-                color: 'rgba(255,255,255,.05)',
-                label: { show: false, },
-                labelLine: { show: false }
-            },
-            emphasis: {
-                color: 'rgba(0,0,0,0)'
-            }
-        };
         option = {
-            color: ['#0f63d6', '#0f78d6', '#0f8cd6', '#0fa0d6', '#0fb4d6'],
             tooltip: {
-                show: true,
-                formatter: "{a} : {c} "
-            },
-            legend: {
-                itemWidth: 10,
-                itemHeight: 10,
-                itemGap: 12,
-                bottom: '3%',
-
-                data: ['浙江', '上海', '广东', '北京', '深圳'],
-                textStyle: {
-                    color: 'rgba(255,255,255,.6)',
+                trigger: 'axis',
+                axisPointer: {
+                    lineStyle: {
+                        color: '#dddc6b'
+                    }
                 }
             },
+            legend: {
+                top: '0%',
+                data: ['男性', '女性'],
+                textStyle: {
+                    color: 'rgba(255,255,255,.5)',
+                    fontSize: '12',
+                }
+            },
+            grid: {
+                left: '10',
+                top: '30',
+                right: '10',
+                bottom: '10',
+                containLabel: true
+            },
 
+            xAxis: [{
+                interval: 50,
+
+                type: 'category',
+                boundaryGap: true,
+                axisLabel: {
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: 12,
+                    },
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255,255,255,.2)'
+                    }
+
+                },
+
+                data: []
+            }, {
+
+                axisPointer: { show: false },
+                axisLine: { show: false },
+                position: 'bottom',
+                offset: 20,
+
+
+            }],
+
+            yAxis: [{
+                type: 'value',
+                axisTick: { show: false },
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(255,255,255,.1)'
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: 12,
+                    },
+                    formatter: function (value, index) {
+                        var value
+                        if (value >= 10000 && value < 1000000) {
+                            value = value / 10000 + '万'
+                        } else if (value >= 1000000) {
+                            value = value / 1000000 + '百万'
+                        } else if (value < 10000) {
+                            value = value
+                        }
+                        return value
+                    },
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: 'rgba(255,255,255,.1)'
+                    }
+                }
+            }],
             series: [
                 {
-                    name: '浙江',
-                    type: 'pie',
-                    clockWise: false,
-                    center: ['50%', '42%'],
-                    radius: ['59%', '70%'],
-                    itemStyle: dataStyle,
-                    hoverAnimation: false,
-                    data: [{
-                        value: 80,
-                        name: '01'
-                    }, {
-                        value: 20,
-                        name: 'invisible',
-                        tooltip: { show: false },
-                        itemStyle: placeHolderStyle
-                    }]
+                    name: '女性',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    showSymbol: false,
+                    lineStyle: {
+
+                        normal: {
+                            color: '#0184d5',
+                            width: 2
+                        }
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgba(1, 132, 213, 0.4)'
+                            }, {
+                                offset: 0.8,
+                                color: 'rgba(1, 132, 213, 0.1)'
+                            }], false),
+                            shadowColor: 'rgba(0, 0, 0, 0.1)',
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#0184d5',
+                            borderColor: 'rgba(221, 220, 107, .1)',
+                            borderWidth: 12
+                        }
+                    },
+                    data: []
+
                 },
                 {
-                    name: '上海',
-                    type: 'pie',
-                    clockWise: false,
-                    center: ['50%', '42%'],
-                    radius: ['49%', '60%'],
-                    itemStyle: dataStyle,
-                    hoverAnimation: false,
-                    data: [{
-                        value: 70,
-                        name: '02'
-                    }, {
-                        value: 30,
-                        name: 'invisible',
-                        tooltip: { show: false },
-                        itemStyle: placeHolderStyle
-                    }]
+                    name: '男性',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    showSymbol: false,
+                    lineStyle: {
+
+                        normal: {
+                            color: '#00d887',
+                            width: 2
+                        }
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgba(0, 216, 135, 0.4)'
+                            }, {
+                                offset: 0.8,
+                                color: 'rgba(0, 216, 135, 0.1)'
+                            }], false),
+                            shadowColor: 'rgba(0, 0, 0, 0.1)',
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#00d887',
+                            borderColor: 'rgba(221, 220, 107, .1)',
+                            borderWidth: 12
+                        }
+                    },
+                    data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
                 },
-                {
-                    name: '广东',
-                    type: 'pie',
-                    clockWise: false,
-                    hoverAnimation: false,
-                    center: ['50%', '42%'],
-                    radius: ['39%', '50%'],
-                    itemStyle: dataStyle,
-                    data: [{
-                        value: 65,
-                        name: '03'
-                    }, {
-                        value: 35,
-                        name: 'invisible',
-                        tooltip: { show: false },
-                        itemStyle: placeHolderStyle
-                    }]
-                },
-                {
-                    name: '北京',
-                    type: 'pie',
-                    clockWise: false,
-                    hoverAnimation: false,
-                    center: ['50%', '42%'],
-                    radius: ['29%', '40%'],
-                    itemStyle: dataStyle,
-                    data: [{
-                        value: 60,
-                        name: '04'
-                    }, {
-                        value: 40,
-                        name: 'invisible',
-                        tooltip: { show: false },
-                        itemStyle: placeHolderStyle
-                    }]
-                },
-                {
-                    name: '深圳',
-                    type: 'pie',
-                    clockWise: false,
-                    hoverAnimation: false,
-                    center: ['50%', '42%'],
-                    radius: ['20%', '30%'],
-                    itemStyle: dataStyle,
-                    data: [{
-                        value: 50,
-                        name: '05'
-                    }, {
-                        value: 50,
-                        name: 'invisible',
-                        tooltip: { show: false },
-                        itemStyle: placeHolderStyle
-                    }]
-                },]
+            ]
         };
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
         window.addEventListener("resize", function () {
-            myChart.resize();
-        });
-    }
+            myChart.resize()
+        })
+
+        //获取数据重新渲染
+        var mxdata = []
+        var mydata = []
+        var fxdata = []
+        var fydata = []
+        $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed-pre?sex=male", function (values) {
+
+            for (var i = 0; i < values["data"].length; i++) {
+                mxdata.push(values["data"][i]["year"])
+                mydata.push(values["data"][i]["depressed_no"])
+            }
+            console.log("male_year" + mxdata.slice(1, 10))
+            console.log("male_number" + mydata.slice(1, 10))
+            myChart.setOption({
+                xAxis: {
+                    data: mxdata
+                },
+                series: [{
+                    data: mydata
+                }, {
+                    data: fydata
+                }]
+            })
+        })
+
+        $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed-pre?sex=female", function (values) {
+
+            for (var i = 0; i < values["data"].length; i++) {
+                fxdata.push(values["data"][i]["year"])
+                fydata.push(values["data"][i]["depressed_no"])
+            }
+            console.log("female_year" + fxdata.slice(1, 10))
+            console.log("female_number" + fydata.slice(1, 10))
+            myChart.setOption({
+                xAxis: {
+                    data: mxdata
+                },
+                series: [{
+                    data: mydata
+                }, {
+                    data: fydata
+                }]
+            })
+
+        })    }
     function echarts_31() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('fb1'));
@@ -762,7 +833,7 @@ $(function () {
                 myChart.resize();
             });
         })
-    };
+    }
     function echarts_32() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('fb2'));
