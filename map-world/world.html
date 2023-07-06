@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="echarts.min.js"></script>
-    <script src="world.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <title>全球抑郁症患者统计</title>
+    <script src="../js/echarts.min.js"></script>
+    <script src="./world.js"></script>
+    <script src="../js/jquery.js"></script>
 </head>
 <body>
 <div id="main" style="width: 100%;height:650px">
@@ -19,7 +19,7 @@
         var myChart = echarts.init(chartDom);
 
         // 指定图表的配置项和数据
-        var name_title = "全球抑郁人数统计"
+        var name_title = "全球抑郁症患者统计"
         var mapName = 'world'
         $.getJSON("https://bdapi.gxist.cn/api/country-depressed-per", function (values) {
             var arr = [];
@@ -55,11 +55,11 @@
                     seriesIndex: [0],
                     type: 'piecewise',
                     pieces: [
-                        {min: 3.5, color: 'rgb(83, 92, 213)', label: '抑郁人口比例>3.5%'},     // 较深的蓝色
-                        {min: 3, max: 3.5, color: 'rgb(105, 122, 228)', label: '抑郁人口比例3-3.5%'},
-                        {min: 2, max: 3, color: 'rgb(127, 152, 240)', label: '抑郁人口比例2-3%'},
-                        {min: 1, max: 2, color: 'rgb(166, 186, 255)', label: '抑郁人口比例1-2%'},
-                        {min: 0, max: 1, color: 'rgb(203, 218, 255)', label: '抑郁人口比例<1%'}  // 浅蓝色
+                        {min: 3.5, color: 'rgb(83, 91, 213)', label: '抑郁症患者比例 > 3.5%'},     // 较深的蓝色
+                        {min: 3, max: 3.5, color: 'rgb(105, 122, 228)', label: '抑郁症患者比例 3 - 3.5%'},
+                        {min: 2, max: 3, color: 'rgb(117, 152, 240)', label: '抑郁症患者比例 2 - 3%'},
+                        {min: 1, max: 2, color: 'rgb(146, 186, 255)', label: '抑郁症患者比例 1 - 2%'},
+                        {min: 0, max: 1, color: 'rgb(223, 230, 255)', label: '抑郁症患者比例 < 1%'}  // 浅蓝色
                     ],
                     textStyle: {
                         color: '#FFFFFF'

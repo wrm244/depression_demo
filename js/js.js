@@ -797,6 +797,7 @@
 
                 title: [{
                     text: '性别分布',
+                    top: '20px',
                     left: 'center',
                     herf: './pages/echarts_31.html',
                     textStyle: {
@@ -866,6 +867,7 @@
 
                 title: [{
                     text: '年龄分布',
+                    top: '20px',
                     left: 'center',
                     textStyle: {
                         color: '#fff',
@@ -925,6 +927,7 @@
             option = {
                 title: [{
                     text: '人均gdp分布',
+                    top: '20px',
                     left: 'center',
                     textStyle: {
                         color: '#fff',

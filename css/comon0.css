@@ -161,7 +161,7 @@ a:hover {
 }
 
 .head {
-	height: 1.05rem;
+	height: 0.7rem;
 	background-size: 100% 100%;
 	position: relative;
 	z-index: 100;
@@ -215,8 +215,6 @@ a:hover {
 .mainbox {
 	padding: .1rem .1rem 0rem .1rem;
 }
-
-.mainbox>ul {}
 
 .mainbox>ul>li {
 	float: left;
@@ -490,8 +488,8 @@ a:hover {
 .sy {
 	float: left;
 	width: 33%;
-	height: 95%;
-	margin-top: .25rem;
+	height: 100%;
+	margin-top: -.2rem; 
 }
 
 
