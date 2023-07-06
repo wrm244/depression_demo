@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="../js/echarts.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+    <title>每年每个国家每十万人抑郁人数展示</title>
+</head>
+<body>
+    <div id="main" style="width: 1000px;height: 1000px;">
+    <script type="text/javascript">
+
+            
+        $(function(){
+            var chartDom = document.getElementById('main');
+            var myChart = echarts.init(chartDom);
+
+            var mxdata = []
+            var mydata = []
+            var fxdata = []
+            var fydata = []
+            $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed-pre?sex=male", function(values){
+
+                for(var i=0;i< values["data"].length;i++){
+                    mxdata.push(values["data"][i]["year"])
+                    mydata.push(values["data"][i]["depressed_no"])
+                }
+            })
+
+            $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed-pre?sex=female", function(values){
+
+                for(var i=0;i< values["data"].length;i++){
+                    fxdata.push(values["data"][i]["year"])
+                    fydata.push(values["data"][i]["depressed_no"])
+                }
+
+                var option;
+            option = {
+                title: {
+                    text: '不同年份的全球抑郁人数（男女）预测'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['Male', 'Female']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                    saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: mxdata
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                    name: 'male',
+                    type: 'line',
+                    data: mydata
+                    },
+                    {
+                    name: 'female',
+                    type: 'line',
+                    data: fydata
+                    },
+                ]};
+                    option && myChart.setOption(option);
+            
+            })
+            
+                })
+    </script>
+    </div>
+</body>
+</html>
