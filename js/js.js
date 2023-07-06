@@ -747,7 +747,7 @@
 
             for (var i = 0; i < values["data"].length; i++) {
                 mxdata.push(values["data"][i]["year"])
-                mydata.push(values["data"][i]["depressed_no"])
+                mydata.push(Math.round(values["data"][i]["depressed_no"]))
             }
             myChart.setOption({
                 xAxis: {
@@ -765,7 +765,7 @@
 
             for (var i = 0; i < values["data"].length; i++) {
                 fxdata.push(values["data"][i]["year"])
-                fydata.push(values["data"][i]["depressed_no"])
+                fydata.push(Math.round(values["data"][i]["depressed_no"]))
             }
             myChart.setOption({
                 xAxis: {
