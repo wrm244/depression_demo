@@ -22,7 +22,6 @@
         var name_title = "全球抑郁人数统计"
         var mapName = 'world'
         $.getJSON("https://bdapi.gxist.cn/api/country-depressed-per", function (values) {
-            console.log(values)
             var arr = [];
             for (var i = 0; i < values["data"].length; i++) {
                 arr.push({
@@ -30,9 +29,6 @@
                     "value": values["data"][i]["average_depression_ratio"] / 10
                 });
             }
-
-            console.log(arr)
-
             var option = {
                 tooltip: {
                     trigger: 'item',

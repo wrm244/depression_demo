@@ -1,5 +1,4 @@
-﻿/*   */
-$(function () {
+﻿$(function () {
     echarts_1();
     echarts_2();
     echarts_4();
@@ -69,7 +68,7 @@ $(function () {
                         textStyle: {
                             color: "rgba(255,255,255,.6)",
                             fontSize: '12',
-                        }, 
+                        },
                         formatter: function (value, index) {
                             var value
                             if (value >= 10000 && value < 1000000) {
@@ -101,6 +100,7 @@ $(function () {
                 }],
                 series: [
                     {
+
                         type: 'bar',
                         data: ydata.slice(1, 10),
                         barWidth: '35%', //柱子宽度
@@ -169,7 +169,7 @@ $(function () {
             var option;
             var selectedLegend = {};
             countryList.forEach(function (country) {
-                selectedLegend[country] = false; // 设置初始显示状态为 false
+                selectedLegend[country] = true; // 设置初始显示状态为 false
             });
             option = {
                 tooltip: {
@@ -178,7 +178,7 @@ $(function () {
                 legend: {
                     selected: selectedLegend,
                     right: '10px',
-                    x: 'left',
+                    x: 'center',
                     data: countryList
                 },
                 grid: {
@@ -198,13 +198,36 @@ $(function () {
                     type: 'category',
                     name: '年份', // 修改 x 轴标签为 "年份"
                     boundaryGap: false,
-                    data: yearList
+                    data: yearList,
+                    axisLabel: {
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    }
                 },
                 yAxis: {
+                    name: '人数',
                     type: 'value',
-                    name: '人数'
+                    axisLabel: {
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (value, index) {
+                            var value
+                            if (value >= 10000 && value < 1000000) {
+                                value = value / 10000 + '万'
+                            } else if (value >= 1000000) {
+                                value = value / 1000000 + '百万'
+                            } else if (value < 10000) {
+                                value = value
+                            }
+                            return value
+                        },
+                    }
                 },
-                series: formattedData.slice(20, 25)
+                series: formattedData.slice(20, 23)
             };
 
             // 使用刚指定的配置项和数据显示图表。
@@ -221,116 +244,116 @@ $(function () {
 
         var myChart = echarts.init(document.getElementById('echart5'));
         $.getJSON("https://bdapi.gxist.cn/api/hdi-depressed", function (values) {
-        // 基于准备好的dom，初始化echarts实例
-        var xdata = []
-        var ydata = []
-        for (var i = 3; i < values["data"].length-1; i++) {
-            xdata.push(values["data"][i]["hdiForYear"])
-            ydata.push(values["data"][i]["depressedNo"])
-        }
-        option = {
-            //  backgroundColor: '#00265f',
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-
-            grid: {
-                left: '0%',
-                top: '10px',
-                right: '0%',
-                bottom: '2%',
-                containLabel: true
-            },
-            xAxis: [{
-                type: 'category',
-                data: xdata,
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-
-                axisTick: {
-                    show: false,
-                },
-                axisLabel: {
-                    interval: 0,
-                    // rotate:50,
-                    show: true,
-                    splitNumber: 15,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
-                    },
-                },
-            }],
-            yAxis: [{
-                type: 'value',
-                axisLabel: {
-                    //formatter: '{value} %'
-                    show: true,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
-                    },
-                    formatter: function (value, index) {
-                        var value
-                        if (value >= 10000 && value < 1000000) {
-                            value = value / 10000 + '万'
-                        } else if (value >= 1000000) {
-                            value = value / 1000000 + '百万'
-                        } else if (value < 10000) {
-                            value = value
-                        }
-                        return value
-                    },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1	)",
-                        width: 1,
-                        type: "solid"
-                    },
-                    
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                    }
-                }
-            }],
-            series: [{
-                type: 'bar',
-                data: ydata,
-                barWidth: '35%', //柱子宽度
-                // barGap: 1, //柱子之间间距
-                itemStyle: {
-                    normal: {
-                        color: '#2f89cf',
-                        opacity: 1,
-                        barBorderRadius: 5,
-                    }
-                }
+            // 基于准备好的dom，初始化echarts实例
+            var xdata = []
+            var ydata = []
+            for (var i = 3; i < values["data"].length - 1; i++) {
+                xdata.push(values["data"][i]["hdiForYear"])
+                ydata.push(values["data"][i]["depressedNo"])
             }
-            ]
-        };
+            option = {
+                //  backgroundColor: '#00265f',
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-        window.addEventListener("resize", function () {
-            myChart.resize();
-        });
-    })
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '2%',
+                    containLabel: true
+                },
+                xAxis: [{
+                    type: 'category',
+                    data: xdata,
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        interval: 0,
+                        // rotate:50,
+                        show: true,
+                        splitNumber: 15,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                }],
+                yAxis: [{
+                    type: 'value',
+                    axisLabel: {
+                        //formatter: '{value} %'
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (value, index) {
+                            var value
+                            if (value >= 10000 && value < 1000000) {
+                                value = value / 10000 + '万'
+                            } else if (value >= 1000000) {
+                                value = value / 1000000 + '百万'
+                            } else if (value < 10000) {
+                                value = value
+                            }
+                            return value
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                }],
+                series: [{
+                    type: 'bar',
+                    data: ydata,
+                    barWidth: '35%', //柱子宽度
+                    // barGap: 1, //柱子之间间距
+                    itemStyle: {
+                        normal: {
+                            color: '#2f89cf',
+                            opacity: 1,
+                            barBorderRadius: 5,
+                        }
+                    }
+                }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+            window.addEventListener("resize", function () {
+                myChart.resize();
+            });
+        })
     }
 
     function echarts_4() {
@@ -513,8 +536,6 @@ $(function () {
                 mxdata.push(values["data"][i]["year"])
                 mydata.push(values["data"][i]["depressed_no"])
             }
-            console.log("male_year" + mxdata.slice(1, 10))
-            console.log("male_number" + mydata.slice(1, 10))
             myChart.setOption({
                 xAxis: {
                     data: mxdata
@@ -533,8 +554,6 @@ $(function () {
                 fxdata.push(values["data"][i]["year"])
                 fydata.push(values["data"][i]["depressed_no"])
             }
-            console.log("female_year" + fxdata.slice(1, 10))
-            console.log("female_number" + fydata.slice(1, 10))
             myChart.setOption({
                 xAxis: {
                     data: mxdata
@@ -730,8 +749,6 @@ $(function () {
                 mxdata.push(values["data"][i]["year"])
                 mydata.push(values["data"][i]["depressed_no"])
             }
-            console.log("male_year" + mxdata.slice(1, 10))
-            console.log("male_number" + mydata.slice(1, 10))
             myChart.setOption({
                 xAxis: {
                     data: mxdata
@@ -750,8 +767,6 @@ $(function () {
                 fxdata.push(values["data"][i]["year"])
                 fydata.push(values["data"][i]["depressed_no"])
             }
-            console.log("female_year" + fxdata.slice(1, 10))
-            console.log("female_number" + fydata.slice(1, 10))
             myChart.setOption({
                 xAxis: {
                     data: mxdata
@@ -763,7 +778,8 @@ $(function () {
                 }]
             })
 
-        })    }
+        })
+    }
     function echarts_31() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('fb1'));
@@ -771,9 +787,9 @@ $(function () {
         $.getJSON("https://bdapi.gxist.cn/api/sex-depressed", function (values) {
             for (var i = 0; i < values["data"].length; i++) {
                 //重写JSON表单格式
-                var arr = { 
-                    "name": values["data"][i]["sex"]=='male'?'女性':'男性', 
-                    "value": values["data"][i]["depressedSex"] 
+                var arr = {
+                    "name": values["data"][i]["sex"] == 'male' ? '女性' : '男性',
+                    "value": values["data"][i]["depressedSex"]
                 };
                 xdata.push(arr);
             }
@@ -782,7 +798,7 @@ $(function () {
                 title: [{
                     text: '性别分布',
                     left: 'center',
-                    herf:'./pages/echarts_31.html',
+                    herf: './pages/echarts_31.html',
                     textStyle: {
                         color: '#fff',
                         fontSize: '16',
