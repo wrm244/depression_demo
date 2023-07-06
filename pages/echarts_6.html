@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>全球男女抑郁症人数与年份趋势</title>
+    <script type="text/javascript" src="../js/echarts.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../css/comon0.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .box {
+            text-align: center;
+        }
+
+        .alltitle {
+            font-size: 24px;
+            /* 调整文字的大小 */
+        }
+
+        .box>div {
+            margin-bottom: 20px;
+        }
+
+        #main {
+            width: 900px;
+            height: 500px;
+            /* 其他样式设置 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head222">
+        <h1 style="font-size: 38px;margin-top: 50px">全球抑郁症患者大数据分析</h1>
+    </div>
+    <div class="container">
+        <div class="box">
+            <div class="alltitle">全球男女抑郁症人数与年份趋势
+                &nbsp;&nbsp;&nbsp;<a href="../index.html" style="font-size: 12px;"><i class="fas fa-home"
+                        style="color: white;font-size: 20px;"></i></a>
+            </div>
+            <div id="main"></div>
+        </div>
+    </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            var myChart = echarts.init(document.getElementById('main'));
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
+                    }
+                },
+                legend: {
+                    top: '0%',
+                    data: ['男性', '女性'],
+                    textStyle: {
+                        color: 'rgba(255,255,255,.5)',
+                        fontSize: '18',
+                    }
+                },
+                grid: {
+                    left: '10',
+                    top: '30',
+                    right: '10',
+                    bottom: '10',
+                    containLabel: true
+                },
+
+                xAxis: [{
+                    interval: 50,
+
+                    type: 'category',
+                    boundaryGap: true,
+                    axisLabel: {
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: 18,
+                        },
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: 'rgba(255,255,255,.2)'
+                        }
+
+                    },
+
+                    data: []
+                }, {
+
+                    axisPointer: { show: false },
+                    axisLine: { show: false },
+                    position: 'bottom',
+                    offset: 20,
+
+
+                }],
+
+                yAxis: [{
+                    type: 'value',
+                    axisTick: { show: false },
+                    axisLine: {
+                        lineStyle: {
+                            color: 'rgba(255,255,255,.1)'
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: 18,
+                        },
+                        formatter: function (value, index) {
+                            var value
+                            if (value >= 10000 && value < 1000000) {
+                                value = value / 10000 + '万'
+                            } else if (value >= 1000000) {
+                                value = value / 1000000 + '百万'
+                            } else if (value < 10000) {
+                                value = value
+                            }
+                            return value
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: 'rgba(255,255,255,.1)'
+                        }
+                    }
+                }],
+                series: [
+                    {
+                        name: '女性',
+                        type: 'line',
+                        smooth: true,
+                        symbol: 'circle',
+                        symbolSize: 5,
+                        showSymbol: false,
+                        lineStyle: {
+
+                            normal: {
+                                color: '#0184d5',
+                                width: 2
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(1, 132, 213, 0.4)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(1, 132, 213, 0.1)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#0184d5',
+                                borderColor: 'rgba(221, 220, 107, .1)',
+                                borderWidth: 12
+                            }
+                        },
+                        data: []
+
+                    },
+                    {
+                        name: '男性',
+                        type: 'line',
+                        smooth: true,
+                        symbol: 'circle',
+                        symbolSize: 5,
+                        showSymbol: false,
+                        lineStyle: {
+
+                            normal: {
+                                color: '#00d887',
+                                width: 2
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(0, 216, 135, 0.4)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(0, 216, 135, 0.1)'
+                                }], false),
+                                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#00d887',
+                                borderColor: 'rgba(221, 220, 107, .1)',
+                                borderWidth: 12
+                            }
+                        },
+                        data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
+                    },
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+            window.addEventListener("resize", function () {
+                myChart.resize()
+            })
+
+            //获取数据重新渲染
+            var mxdata = []
+            var mydata = []
+            var fxdata = []
+            var fydata = []
+            $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed-pre?sex=male", function (values) {
+
+                for (var i = 0; i < values["data"].length; i++) {
+                    mxdata.push(values["data"][i]["year"])
+                    mydata.push(values["data"][i]["depressed_no"])
+                }
+                console.log("male_year" + mxdata.slice(1, 10))
+                console.log("male_number" + mydata.slice(1, 10))
+                myChart.setOption({
+                    xAxis: {
+                        data: mxdata
+                    },
+                    series: [{
+                        data: mydata
+                    }, {
+                        data: fydata
+                    }]
+                })
+            })
+
+            $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed-pre?sex=female", function (values) {
+
+                for (var i = 0; i < values["data"].length; i++) {
+                    fxdata.push(values["data"][i]["year"])
+                    fydata.push(values["data"][i]["depressed_no"])
+                }
+                console.log("female_year" + fxdata.slice(1, 10))
+                console.log("female_number" + fydata.slice(1, 10))
+                myChart.setOption({
+                    xAxis: {
+                        data: mxdata
+                    },
+                    series: [{
+                        data: mydata
+                    }, {
+                        data: fydata
+                    }]
+                })
+
+            })
+        })
+
+    </script>
+</body>
+
+</html>
