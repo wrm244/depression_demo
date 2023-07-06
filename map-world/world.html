@@ -8,7 +8,7 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
-<div id="main" style="width: 630px;height:650px">
+<div id="main" style="width: 100%;height:650px">
 
 </div>
 
@@ -44,7 +44,6 @@
                             params.value = params.value.toFixed(2);
                             toolTiphtml = params.name + '抑郁比例: ' + params.value + '%';
                         }
-                        //console.log(toolTiphtml)
                         return toolTiphtml;
                     }
                 },
@@ -56,7 +55,7 @@
                 visualMap: {
                     show: true,
                     left: 'left',
-                    top: 'bottom',
+                    top: 'top',
                     seriesIndex: [0],
                     type: 'piecewise',
                     pieces: [
@@ -70,13 +69,6 @@
                         color: '#FFFFFF'
                     }
                 },
-                // legend: {
-                //     show: true,
-                //     data: ['男性抑郁比例', '女性抑郁比例'], // 添加两个数据项的图例名称
-                //     textStyle: {
-                //         color: '#fff'
-                //     }
-                // },
                 geo: {
                     show: true,
                     map: mapName,
