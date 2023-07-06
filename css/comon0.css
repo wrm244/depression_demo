@@ -44,6 +44,8 @@ a:hover{ color:#06c; text-decoration: none!important}
 
 .head{ height:1.05rem; background: url(../images/head_bg.png) no-repeat center center; background-size: 100% 100%; position: relative; z-index: 100;}
 .head h1{ color:#fff; text-align: center; font-size: .4rem; line-height:.8rem;}
+.head222 h1{ color:#fff; text-align: center; font-size: 1rem; line-height:1rem;}
+.head222{ height:1.05rem;  position: relative; }
 .head h1 img{ width:1.5rem; display: inline-block; vertical-align: middle; margin-right: .2rem}
 .weather{ position:absolute; right:.3rem; top:0; line-height: .75rem;}
 .weather img{ width:.37rem; display: inline-block; vertical-align: middle;}
@@ -79,7 +81,7 @@ a:hover{ color:#06c; text-decoration: none!important}
 .barbox li{ font-size: .7rem; color: #ffeb7b; padding: .05rem 0;  font-family:electronicFont; font-weight: bold;}
 .barbox2 li{ font-size: .19rem; color:rgba(255,255,255,.7); padding-top: .1rem;}
 
-.map{  position:relative; height: 7.2rem; z-index: 9;}
+.map{  position:relative; height: 9rem; z-index: 9;}
 .map4{ width: 200%; height:7rem;  position: relative; left: -50%; top: 4%; margin-top: .2rem; z-index: 5;}
 .map1,.map2,.map3{ position:absolute; opacity: .5}
 .map1{ width:6.43rem; z-index: 2;top:.45rem; left: .7rem;  animation: myfirst2 15s infinite linear;}
