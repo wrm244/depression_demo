@@ -711,9 +711,16 @@ $(function () {
                 title: [{
                     text: '性别分布',
                     left: 'center',
+                    herf:'./pages/echarts_31.html',
                     textStyle: {
                         color: '#fff',
-                        fontSize: '16'
+                        fontSize: '16',
+
+                    },
+                    events: {
+                        click: function () {
+                            window.location.href = './pages/echarts_31.html'; // 设置要跳转的链接
+                        }
                     }
 
                 }],
@@ -857,7 +864,7 @@ $(function () {
                 },
                 series: [
                     {
-                        name: '兴趣分布',
+                        name: '人均gdp分布',
                         type: 'pie',
                         center: ['50%', '42%'],
                         radius: ['40%', '60%'],
