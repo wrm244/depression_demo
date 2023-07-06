@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>各国家抑郁症人数随年份趋势</title>
     <script type="text/javascript" src="../js/echarts.min.js"></script>
     <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="../css/comon0.css">
@@ -127,11 +127,34 @@
                         type: 'category',
                         name: '年份', // 修改 x 轴标签为 "年份"
                         boundaryGap: false,
-                        data: yearList
+                        data: yearList,
+                        axisLabel: {
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '18',
+                        },
+                    }
                     },
                     yAxis: {
                         type: 'value',
-                        name: '人数'
+                        name: '人数',
+                        axisLabel: {
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '18',
+                        },
+                        formatter: function (value, index) {
+                            var value
+                            if (value >= 10000 && value < 1000000) {
+                                value = value / 10000 + '万'
+                            } else if (value >= 1000000) {
+                                value = value / 1000000 + '百万'
+                            } else if (value < 10000) {
+                                value = value
+                            }
+                            return value
+                        },
+                    }
                     },
                     series: formattedData.slice(10, 25)
                 };
