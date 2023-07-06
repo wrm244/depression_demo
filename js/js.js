@@ -218,6 +218,7 @@ $(function () {
     function echarts_5() {
 
         // 基于准备好的dom，初始化echarts实例
+
         var myChart = echarts.init(document.getElementById('echart5'));
         $.getJSON("https://bdapi.gxist.cn/api/hdi-depressed", function (values) {
         // 基于准备好的dom，初始化echarts实例
@@ -699,7 +700,10 @@ $(function () {
         $.getJSON("https://bdapi.gxist.cn/api/sex-depressed", function (values) {
             for (var i = 0; i < values["data"].length; i++) {
                 //重写JSON表单格式
-                var arr = { "name": values["data"][i]["sex"], "value": values["data"][i]["depressedSex"] };
+                var arr = { 
+                    "name": values["data"][i]["sex"]=='male'?'女性':'男性', 
+                    "value": values["data"][i]["depressedSex"] 
+                };
                 xdata.push(arr);
             }
             option = {
@@ -725,7 +729,7 @@ $(function () {
                     top: '70%',
                     itemWidth: 10,
                     itemHeight: 10,
-                    data: ['male', 'female'],
+                    data: ['女性', '男性'],
                     textStyle: {
                         color: 'rgba(255,255,255,.5)',
                         fontSize: '12',
@@ -737,7 +741,7 @@ $(function () {
                         type: 'pie',
                         center: ['50%', '42%'],
                         radius: ['40%', '60%'],
-                        color: ['#065aab', '#066eab'],
+                        color: ['#065aab', '#068eab'],
                         label: { show: false },
                         labelLine: { show: false },
                         data: xdata
