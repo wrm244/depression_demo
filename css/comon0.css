@@ -44,6 +44,8 @@ a:hover{ color:#06c; text-decoration: none!important}
 
 .head{ height:1.05rem; background: url(../images/head_bg.png) no-repeat center center; background-size: 100% 100%; position: relative; z-index: 100;}
 .head h1{ color:#fff; text-align: center; font-size: .4rem; line-height:.8rem;}
+.head222 h1{ color:#fff; text-align: center; font-size: 1rem; line-height:1rem;}
+.head222{ height:1.05rem;  position: relative; }
 .head h1 img{ width:1.5rem; display: inline-block; vertical-align: middle; margin-right: .2rem}
 .weather{ position:absolute; right:.3rem; top:0; line-height: .75rem;}
 .weather img{ width:.37rem; display: inline-block; vertical-align: middle;}
