@@ -233,7 +233,7 @@
 
                 for (var i = 0; i < values["data"].length; i++) {
                     mxdata.push(values["data"][i]["year"])
-                    mydata.push(values["data"][i]["depressed_no"])
+                    mydata.push(Math.round(values["data"][i]["depressed_no"]))
                 }
                 console.log("male_year" + mxdata.slice(1, 10))
                 console.log("male_number" + mydata.slice(1, 10))
@@ -253,7 +253,7 @@
 
                 for (var i = 0; i < values["data"].length; i++) {
                     fxdata.push(values["data"][i]["year"])
-                    fydata.push(values["data"][i]["depressed_no"])
+                    fydata.push(Math.round(values["data"][i]["depressed_no"]))
                 }
                 console.log("female_year" + fxdata.slice(1, 10))
                 console.log("female_number" + fydata.slice(1, 10))
