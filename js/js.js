@@ -219,27 +219,6 @@ $(function () {
 
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart5'));
-        var mxdata = []
-        var mydata = []
-        var fxdata = []
-        var fydata = []
-        $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed?sex=male", function (values) {
-
-            for (var i = 0; i < values["data"].length; i++) {
-                mxdata.push(values["data"][i]["year"])
-                mydata.push(values["data"][i]["depressed_no"])
-            }
-        })
-
-        $.getJSON("https://bdapi.gxist.cn/api/year-per-depressed?sex=female", function (values) {
-
-            for (var i = 0; i < values["data"].length; i++) {
-                fxdata.push(values["data"][i]["year"])
-                fydata.push(values["data"][i]["depressed_no"])
-            }
-
-        })
-        var myChart = echarts.init(document.getElementById('echart5'));
         $.getJSON("https://bdapi.gxist.cn/api/hdi-depressed", function (values) {
         // 基于准备好的dom，初始化echarts实例
         var xdata = []
