@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>抑郁症总人数随年份增长趋势</title>
+    <title>人类发展指数(HDI)与全球抑郁症人数趋势</title>
     <script type="text/javascript" src="../js/echarts.min.js"></script>
     <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="../css/comon0.css">
@@ -45,7 +45,7 @@
     </div>
     <div class="container">
         <div class="box">
-            <div class="alltitle">抑郁症总人数随年份增长趋势
+            <div class="alltitle">人类发展指数(HDI)与全球抑郁症人数趋势
                 &nbsp;&nbsp;&nbsp;<a href="../index.html" style="font-size: 12px;"><i class="fas fa-home"
                         style="color: white;font-size: 20px;"></i></a>
             </div>
@@ -57,34 +57,35 @@
 
     <script type="text/javascript">
         $(function () {
+            // 基于准备好的dom，初始化echarts实例
             var myChart = echarts.init(document.getElementById('main'));
-
-            var xdata = []
-            var ydata = []
-            $.getJSON("https://bdapi.gxist.cn/api/year-depressed", function (values) {
-
-                for (var i = 0; i < values["data"].length; i++) {
-                    xdata.push(values["data"][i]["year"])
+            $.getJSON("https://bdapi.gxist.cn/api/hdi-depressed", function (values) {
+                // 基于准备好的dom，初始化echarts实例
+                var xdata = []
+                var ydata = []
+                for (var i = 3; i < values["data"].length - 1; i++) {
+                    xdata.push(values["data"][i]["hdiForYear"])
                     ydata.push(values["data"][i]["depressedNo"])
                 }
                 option = {
-                    //  backgroundColor: '#00265f',
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                             type: 'shadow'
                         }
                     },
+
                     grid: {
                         left: '0%',
                         top: '10px',
                         right: '0%',
-                        bottom: '4%',
+                        bottom: '2%',
                         containLabel: true
                     },
                     xAxis: [{
                         type: 'category',
                         data: xdata,
+                        name: 'HDI指标',
                         axisLine: {
                             show: true,
                             lineStyle: {
@@ -110,6 +111,7 @@
                     }],
                     yAxis: [{
                         type: 'value',
+                        name: "抑郁症患者人数",
                         axisLabel: {
                             //formatter: '{value} %'
                             show: true,
@@ -139,6 +141,7 @@
                                 width: 1,
                                 type: "solid"
                             },
+
                         },
                         splitLine: {
                             lineStyle: {
@@ -146,21 +149,19 @@
                             }
                         }
                     }],
-                    series: [
-                        {
-                            type: 'bar',
-                            data: ydata,
-                            barWidth: '35%', //柱子宽度
-                            // barGap: 1, //柱子之间间距
-                            itemStyle: {
-                                normal: {
-                                    color: '#2f89cf',
-                                    opacity: 1,
-                                    barBorderRadius: 5,
-                                }
+                    series: [{
+                        type: 'bar',
+                        data: ydata,
+                        barWidth: '35%', //柱子宽度
+                        // barGap: 1, //柱子之间间距
+                        itemStyle: {
+                            normal: {
+                                color: '#2f89cf',
+                                opacity: 1,
+                                barBorderRadius: 5,
                             }
                         }
-
+                    }
                     ]
                 };
 
