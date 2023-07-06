@@ -36,7 +36,7 @@
                 },
                 xAxis: [{
                     type: 'category',
-                    data: xdata.slice(1, 10),
+                    data: xdata.slice(7, 16),
                     axisLine: {
                         show: true,
                         lineStyle: {
@@ -102,7 +102,7 @@
                     {
 
                         type: 'bar',
-                        data: ydata.slice(1, 10),
+                        data: ydata.slice(7, 16),
                         barWidth: '35%', //柱子宽度
                         // barGap: 1, //柱子之间间距
                         itemStyle: {
